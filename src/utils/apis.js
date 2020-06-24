@@ -160,6 +160,9 @@ export default {
 	// 充值预交金-生成住院预交费订单
 	hospitalization: (params) => http.post(`/api/pay/createOrder/hospitalization`, params),
 	
+	// 获取不同医院预约日期集合
+	getDaysByHostpitalId: (params) => http.get(`/api/hospital/getDaysByHostpitalId`, {params}),
+	
 	// 支付方法
 	payFuc({appId, timeStamp, nonceStr, Package, signType, paySign, callBack}) {
 		WeixinJSBridge.invoke(

@@ -6,6 +6,9 @@ import store from './store'
 import 'amfe-flexible'
 import http from './utils/http'
 import apis from './utils/apis'
+import FastClick from 'fastclick'
+
+FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 

@@ -103,7 +103,7 @@
 				if (index === this.dateIndex) return
 				this.list = []
 				this.dateIndex = index
-				this.list = this.allDoctorList[this.dateIndex]
+				this.getList()
 			},
 			// 跳转医生详情
 			goDetail(data) {
@@ -128,25 +128,18 @@
 					type: type,
 					queryKey: this.keyword,
 				}
-				if(type === 1){
-					params.date = `${this.dateList[this.dateIndex].year}-${this.dateList[this.dateIndex].month}-${this.dateList[this.dateIndex].day}`
-				}
+				if(type === 1) params.date = `${this.dateList[this.dateIndex].year}-${this.dateList[this.dateIndex].month}-${this.dateList[this.dateIndex].day}`
 				this.$api.schedule(params).then(res => {
 					if (res.data.code === 0) {
 						let data = res.data.scheduleList
-						this.dateList = []
 						this.allDoctorList = []
 						data.map(x => {
-							let year = x.scheduleDate.split('-')[0]
-							let month = x.scheduleDate.split('-')[1]
-							let day = x.scheduleDate.split('-')[2]
 							let topArr = x.morningDoctorList === null ? [] : x.morningDoctorList
 							let bottomArr = x.afternoonDoctorList === null ? [] : x.afternoonDoctorList
 							let arr = [...topArr, ...bottomArr]
-							this.dateList.push({year: year, month: month, day: day})
-							this.allDoctorList.push(arr)
+							this.allDoctorList.push(...arr)
 						})
-						this.list = this.allDoctorList[this.dateIndex]
+						this.list = this.allDoctorList
 						this.$mask().hide()
 					}
 				})
@@ -158,6 +151,28 @@
 				this.timer = setTimeout(() => {
 					this.getList()
 				}, 300)
+			},
+			// 获取日期
+			getDate(){
+				this.$api.getDaysByHostpitalId({hospitalId: this.hospitalId}).then(res => {
+					if(res.data.code === 0){
+						let date = res.data.days
+						let newDate = []
+						date.map(x => {
+							let year = x.split('-')[0]
+							let month = x.split('-')[1]
+							let day = x.split('-')[2]
+							let obj = {
+								year,
+								month,
+								day
+							}
+							newDate.push(obj)
+						})
+						this.dateList = newDate
+						this.getList()
+					}
+				})
 			}
 		},
 		created() {
@@ -165,7 +180,7 @@
 			this.hisDepartmentId = this.$route.query.hisDepartmentId
 			this.hospitalId = this.$route.query.hospitalId
 			document.title = this.$route.query.hisDepartmentName
-			this.getList()
+			this.getDate()
 		}
 	}
 </script>
