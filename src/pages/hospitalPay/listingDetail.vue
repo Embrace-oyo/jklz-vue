@@ -1,67 +1,73 @@
 <template>
 	<div class="listingDetail">
 		<div class="box">
-			<div class="item">
+			<div class="item" v-if="detail.itemName">
 				<span class="title">项目名称</span>
 				<span class="cont">
 					{{detail.itemName}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.deptName">
+				<span class="title">医院名称</span>
+				<span class="cont">
+					{{detail.hospitalName}}
+				</span>
+			</div>
+			<div class="item" v-if="detail.deptName">
 				<span class="title">科室名称</span>
 				<span class="cont">
 					{{detail.deptName}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.qty">
+				<span class="title">项目数量</span>
+				<span class="cont">
+					{{parseInt(detail.qty)}}
+				</span>
+			</div>
+			<div class="item" v-if="detail.price">
+				<span class="title">项目单价</span>
+				<span class="cont">
+					{{(detail.price / 1).toFixed(2)}} 元
+				</span>
+			</div>
+			<div class="item" v-if="detail.totalFee">
 				<span class="title">项目总费用</span>
 				<span class="cont">
 					{{(detail.totalFee / 100).toFixed(2)}} 元
 				</span>
 			</div>
-			<div class="item">
-				<span class="title">项目单价</span>
-				<span class="cont">
-					{{detail.price}} 元
-				</span>
-			</div>
-			<div class="item">
-				<span class="title">项目数量</span>
-				<span class="cont">
-					{{detail.qty}}
-				</span>
-			</div>
-			<div class="item">
+			<div class="item" v-if="detail.specs">
 				<span class="title">规格</span>
 				<span class="cont">
 					{{detail.specs}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.unit">
 				<span class="title">单位</span>
 				<span class="cont">
 					{{detail.unit}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.itemId">
 				<span class="title">项目编码</span>
 				<span class="cont">
 					{{detail.itemId}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.itemType">
 				<span class="title">项目类别</span>
 				<span class="cont">
 					{{detail.itemType}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.operateTime">
 				<span class="title">费用产生时间</span>
 				<span class="cont">
 					{{detail.operateTime}}
 				</span>
 			</div>
-			<div class="item">
+			<div class="item" v-if="detail.reserved">
 				<span class="title">备注</span>
 				<span class="cont">
 					{{detail.reserved}}
@@ -79,10 +85,10 @@
 				detail: '',
 			}
 		},
-		methods: {
-		},
+		methods: {},
 		created() {
-			this.detail = JSON.parse(decodeURIComponent(this.$route.query.detail))
+			this.detail = JSON.parse(this.$route.query.detail)
+			// this.detail = JSON.parse(decodeURIComponent(this.$route.query.detail))
 		}
 	}
 </script>

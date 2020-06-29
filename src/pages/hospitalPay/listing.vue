@@ -140,9 +140,9 @@
 				}
 				this.$api.queryInpatientBillList(params).then(res => {
 					if (res.data.code === 0) {
+						this.$mask().hide()
 						this.list = this.list.concat(res.data.queryInpatientBillListReponseDTO.queryInpatientBillListReponseList)
 						this.total = res.data.queryInpatientBillListReponseDTO.totalNum
-						this.$mask().hide()
 					}
 				})
 			},

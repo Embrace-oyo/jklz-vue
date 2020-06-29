@@ -30,7 +30,7 @@
 				:data="list"
 				:options="options">
 				<router-link tag="div"
-				             :to="`/reportDetail?type=${TabIndex === 0 ? '1' : '2'}&repId=${item.repId}&id=${curSelect.id}&hospitalId=${hospitalId}`"
+				             :to="`/reportDetail?type=${TabIndex === 0 ? '1' : '2'}&repId=${item.repId}&id=${curSelect.id}&hospitalId=${item.hospitalId}`"
 				             class="item" v-for="(item, index) of list" :key="index">
 					<div class="l" v-if="TabIndex === 0">
 						<span>{{item.repName}}</span>
