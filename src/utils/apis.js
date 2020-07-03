@@ -163,6 +163,9 @@ export default {
 	// 获取不同医院预约日期集合
 	getDaysByHostpitalId: (params) => http.get(`/api/hospital/getDaysByHostpitalId`, {params}),
 	
+	// 查询患者排队医生ID
+	findDoctorId: (params) => http.post(`/api/work/doctor/findDoctorId`, params),
+	
 	// 支付方法
 	payFuc({appId, timeStamp, nonceStr, Package, signType, paySign, callBack}) {
 		WeixinJSBridge.invoke(

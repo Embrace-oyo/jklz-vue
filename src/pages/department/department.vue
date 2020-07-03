@@ -21,7 +21,7 @@
 					:data="list"
 					:options="options">
 					<ul>
-						<div class="item" v-for="(item, index) of list" :key="index" @click="departmentClick(item)">
+						<div class="item" v-for="(item, index) of list" :key="index" @click="departmentClick(item, index)">
 							{{item.hisDepartmentName}}
 						</div>
 					</ul>
@@ -64,7 +64,7 @@
 				}, 500)
 			},
 			// 科室点击
-			departmentClick(data) {
+			departmentClick(data, index) {
 				if (this.type === 3) {
 					this.$router.push({
 						path: `/departmentDetail`,
@@ -75,6 +75,7 @@
 						path: `/doctor?hospitalId=${data.hospitalId}&hisOrganizationId=${data.hisOrganizationId}&hisDepartmentId=${data.hisDepartmentId}&hisDepartmentName=${data.hisDepartmentName}`
 					})
 				} else if (this.type === 2) {
+					data.index = index
 					this.$router.push({
 						path: `/waiting`,
 						query: data

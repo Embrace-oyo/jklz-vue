@@ -242,34 +242,26 @@
 				let params = {
 					doctorId: this.query.doctorID,
 					healthCardId: this.curSelect.healthCardId,
-					hosptailID: this.query.hospitalId
+					hosptailID: this.query.hospitalId,
+					date: this.query.scheduleDate
 				}
 				this.$api.checkIsHaveAppointment(params).then(res => {
 					if (res.data.code === 0) {
 						if(res.data.num >= 1){
 							this.$createDialog({
-								type: 'confirm',
+								type: 'alert',
 								icon: 'cubeic-alert',
 								title: '注意事项',
-								content: `您已成功预约${this.query.hisDoctorName}医生，确认继续预约吗？`,
+								content: `您已预约${this.query.hisDoctorName}医生，请选择其他医生！`,
 								confirmBtn: {
 									text: '知道了',
 									active: true,
 									disabled: false,
 									href: 'javascript:;'
 								},
-								cancelBtn: {
-									text: '取消',
-									active: false,
-									disabled: false,
-									href: 'javascript:;'
-								},
 								onConfirm: () => {
-									this.isPost = true
-								},
-								onCancel:() => {
 									this.isPost = false
-								}
+								},
 							}).show()
 						}else if(res.data.num === 0){
 							this.isPost = true

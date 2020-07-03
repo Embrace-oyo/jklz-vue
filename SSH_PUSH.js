@@ -17,7 +17,7 @@ const CONFIG = {
 		NPM: 'npm run buildSandBox',
 	},
 	build: {
-		SERVER_PATH: "47.108.57.152", // ssh地址
+		SERVER_PATH: "47.108.64.129", // ssh地址
 		SSH_USER: "root", // ssh 用户
 		SSH_KEY: "d@JpdJA65C", // ssh 密码 / private key文件地址
 		PATH: '/mnt/data/web', // 操作开始文件夹

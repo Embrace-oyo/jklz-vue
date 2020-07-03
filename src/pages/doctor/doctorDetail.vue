@@ -50,9 +50,7 @@
 						</div>
 					</div>
 					<div class="r">
-						<div class="btn" @click="register(item)"
-						     :class="{full: item.registerLimitNum - item.registeredNum === 0}">{{item.registerLimitNum -
-							item.registeredNum === 0 ? '已满' : '挂号'}}
+						<div class="btn" @click="register(item)" :class="{full: item.registerLimitNum - item.registeredNum < 0}">{{item.registerLimitNum - item.registeredNum > 1  ? '挂号' : '已满'}}
 						</div>
 					</div>
 				</div>
@@ -144,7 +142,7 @@
 			},
 			// 挂号按钮
 			register(data) {
-				if (data.registerLimitNum - data.registeredNum === 0) return
+				if (data.registerLimitNum - data.registeredNum <= 0) return
 				this.$router.push({
 					path: '/makeAnAppointment',
 					query: {

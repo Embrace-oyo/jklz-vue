@@ -36,7 +36,7 @@
 						<div class="bottom">
 							<div class="btnBlue" v-if="item.status === 1" @click="payOrder(item)">去支付</div>
 							<div class="btnGrayDelete" v-if="item.status === 4" @click="deleteOrder(item.id)">删除</div>
-							<div class="btnBlack" v-if="item.status === 2" @click="reBack(item.orderSn)">退号</div>
+<!--							<div class="btnBlack" v-if="item.status === 2" @click="reBack(item.orderSn)">退号</div>-->
 							<div class="btnGray" v-if="item.status === 1" @click="orderCancel(item.id)">取消订单</div>
 						</div>
 					</div>
