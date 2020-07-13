@@ -11,7 +11,7 @@
 				<span @click="searchClick">搜索</span>
 			</div>
 		</div>
-		<div class="box2">
+		<div class="box2" v-if="!isShow">
 			<div class="noData" v-if="list.length === 0">
 				<span>暂无数据~</span>
 			</div>
@@ -26,6 +26,14 @@
 						</div>
 					</ul>
 				</cube-scroll>
+			</div>
+		</div>
+		<div class="box3" v-if="isShow">
+			<div class="list">
+				<ul>
+					<div class="item" @click="clickNew(2)">七里门诊医疗</div>
+					<div class="item" @click="clickNew(1)">古城门诊医疗</div>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -50,6 +58,7 @@
 				list: [],
 				timer: null,
 				type: '',
+				isShow: false,
 			}
 		},
 		methods: {
@@ -83,11 +92,12 @@
 				}
 			},
 			// 获取科室列表
-			getDepartment(flag = false) {
+			getDepartment(flag = false, type = '') {
 				if (!flag) this.$mask().show()
 				let params = {
 					hospitalId: this.hospitalId,
-					queryKey: this.keyword
+					queryKey: this.keyword,
+					type: type,
 				}
 				this.$api.department(params).then(res => {
 					if (res.data.code === 0) {
@@ -96,13 +106,22 @@
 						this.$mask().hide()
 					}
 				})
+			},
+			//
+			clickNew(type){
+				this.isShow = false
+				this.getDepartment('', type)
 			}
 		},
 		created() {
 			document.title = '科室列表'
 			this.hospitalId = this.$route.query.hospitalId
 			this.type = this.$route.query.type ? parseInt(this.$route.query.type) : ''
-			this.getDepartment()
+			if(this.hospitalId === '4303'){
+				this.isShow = true
+			}else{
+				this.getDepartment()
+			}
 		}
 	}
 </script>
@@ -162,7 +181,7 @@
 			}
 		}
 		
-		.box2 {
+		.box2, .box3 {
 			border-top: 8px solid #f7f7f7;
 			
 			.noData {

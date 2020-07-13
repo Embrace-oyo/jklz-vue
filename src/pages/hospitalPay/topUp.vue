@@ -9,7 +9,7 @@
 			</div>
 			<div class="list">
 				<div class="item" :class="{active: item.id === index}" v-for="item of tab" :key="item.id" @click="tabClick(item)">{{item.name}}</div>
-				<div class="item" :class="{active: index === 5}" @click="tabClick({name: 0, id: 5})"><input type="number" v-model="otherNumber" placeholder="自定义(整数)"></div>
+				<div class="item" :class="{active: index === 5}" @click="tabClick({name: 0, id: 5})"><input type="number" v-model="otherNumber" :disabled="index === 5 ? false : true" placeholder="自定义(整数)"></div>
 			</div>
 			<div class="btn" @click="pay">充值</div>
 		</div>
@@ -52,9 +52,17 @@
 					healthCardId: this.query.healthCardId
 				}
 				if(this.index === 5){
-					params.totalPrice = Number(this.otherNumber) * 100
+					let otherNumber = Number(this.otherNumber)
+					if(otherNumber === 0){
+						this.$toast('请输入整数')
+						return;
+					}
+					if(!Number.isInteger(otherNumber)){
+						this.$toast('请输入整数')
+						return;
+					}
+					params.totalPrice = otherNumber * 100
 				}else{
-					
 					params.totalPrice = Number(this.number) * 100
 				}
 				let that = this

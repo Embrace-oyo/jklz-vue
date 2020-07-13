@@ -12,7 +12,7 @@
 				</div>
 				<div class="type" v-if="type === 2">
 					<span>{{item.itemName}}</span>
-					<span>部位：{{item.checkPart}}</span>
+					<span>部位：{{item.checkPart !== null ? item.checkPart : item.itemName}}</span>
 					<span>{{item.diagnosis}}</span>
 					<span>{{item.discription}}</span>
 				</div>
@@ -91,7 +91,6 @@
 					align-items: flex-start;
 					justify-content: flex-start;
 					flex-direction: column;
-					width: 150px;
 				}
 				
 				.title {
